@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.63.1/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.63.1/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  <link href="/css/globe.css" rel="stylesheet">
+  <title>Current ISS Position</title>
+</head>
+<body>
+  <div id="globeContainer"></div>
+  <script>
+  
+    Cesium.Ion.defaultAccessToken = 'pleasEGeTyOURoWnkey';
+    var viewer = new Cesium.Viewer('globeContainer',{automaticallyTrackDataSourceClocks : false, shouldAnimate: true});
+    viewer.scene.globe.enableLighting = true;
+    pitch = (Cesium.Math.PI/180)*35;
+    heading = 0.0;
+    var czmlStream = new Cesium.CzmlDataSource();
+    viewer.dataSources.add(czmlStream.load('/data/iss.czml'));
+    viewer.flyTo(czmlStream,{offset:{heading: heading, pitch: -1.0*pitch,range:13500000}});
+
+  </script>
+</body>
+</html>
